@@ -1,5 +1,5 @@
 # Generated with bin/fetch-telegram-methods
-# Bot API 8.2
+# Bot API 9.0
 
 getUpdates
 setWebhook
@@ -102,6 +102,30 @@ editMessageReplyMarkup
 stopPoll
 deleteMessage
 deleteMessages
+getAvailableGifts
+sendGift
+giftPremiumSubscription
+verifyUser
+verifyChat
+removeUserVerification
+removeChatVerification
+readBusinessMessage
+deleteBusinessMessages
+setBusinessAccountName
+setBusinessAccountUsername
+setBusinessAccountBio
+setBusinessAccountProfilePhoto
+removeBusinessAccountProfilePhoto
+setBusinessAccountGiftSettings
+getBusinessAccountStarBalance
+transferBusinessAccountStars
+getBusinessAccountGifts
+convertGiftToStars
+upgradeGift
+transferGift
+postStory
+editStory
+deleteStory
 
 sendSticker
 getStickerSet
@@ -119,12 +143,6 @@ setStickerSetTitle
 setStickerSetThumbnail
 setCustomEmojiStickerSetThumbnail
 deleteStickerSet
-getAvailableGifts
-sendGift
-verifyUser
-verifyChat
-removeUserVerification
-removeChatVerification
 
 answerInlineQuery
 answerWebAppQuery
