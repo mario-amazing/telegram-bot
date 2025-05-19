@@ -13,21 +13,24 @@ module Telegram
 
         def format(body, action)
           body = body.dup
-          case action.to_s
-          when 'sendMediaGroup'
-            extract_files_from_array!(body, :media)
-          when 'editMessageMedia'
-            replace_field(body, :media) do |value|
-              files = {}
-              extract_files_from_hash(value, files).tap { body.merge!(files) }
-            end
-          end
-          body.each do |key, val|
-            body[key] = val.to_json if val.is_a?(Hash) || val.is_a?(Array)
-          end
+          handlers = {
+            'sendMediaGroup' => -> { extract_files_from_array!(body, :media) },
+            'editMessageMedia' => -> { extract_and_merge!(body, :media) },
+            'postStory' => -> { extract_and_merge!(body, :content) },
+          }
+          handlers[action.to_s]&.call
+
+          body.transform_values! { |v| v.is_a?(Hash) || v.is_a?(Array) ? v.to_json : v }
         end
 
         private
+
+        def extract_and_merge!(body, field)
+          replace_field(body, field) do |value|
+            files = {}
+            extract_files_from_hash(value, files).tap { body.merge!(files) }
+          end
+        end
 
         # Detects field by symbol or string name and replaces it with mapped value.
         def replace_field(hash, field_name)
